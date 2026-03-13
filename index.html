@@ -513,7 +513,81 @@
     }
 
     /* ═══════════════════════════
-       SLIDE 5 — Team (Professional Layout)
+       SLIDE 4 — Combined Architecture
+    ═══════════════════════════ */
+    .combined-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 14px;
+      flex: 1;
+    }
+    .combined-diagram {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      background: rgba(255,255,255,0.6);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: 1.5px solid rgba(196,226,237,0.8);
+      border-radius: 12px;
+      padding: 12px;
+      overflow: hidden;
+      min-height: 0;
+    }
+    .diagram-label {
+      font-size: clamp(12px, 1vw, 15px);
+      font-weight: 700;
+      color: #063d30;
+      text-align: center;
+      margin-bottom: 2px;
+    }
+    .combined-diagram img {
+      width: 100%;
+      height: auto;
+      object-fit: contain;
+      flex: 1;
+    }
+    .pillar-card {
+      background: rgba(255,255,255,0.6);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: 1.5px solid rgba(196,226,237,0.8);
+      border-radius: 11px;
+      padding: clamp(11px, 1.3vh, 16px) clamp(13px, 1.5vw, 18px);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      position: relative;
+    }
+    .pillar-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, #9cecb9, #c4e2ed);
+      border-radius: 11px 11px 0 0;
+    }
+    .pillar-icon {
+      font-size: clamp(28px, 2.8vw, 40px);
+      min-width: clamp(28px, 2.8vw, 40px);
+      line-height: 1;
+    }
+    .pillar-title {
+      font-size: clamp(13px, 1.15vw, 17px);
+      font-weight: 700;
+      color: #063d30;
+      margin-bottom: 2px;
+    }
+    .pillar-desc {
+      font-size: clamp(11px, 0.95vw, 14px);
+      color: #4a7a63;
+      line-height: 1.4;
+    }
+
+    /* ═══════════════════════════
+       SLIDE 6 — Team (Professional Layout)
     ═══════════════════════════ */
     .team-showcase {
       display: flex;
@@ -758,8 +832,34 @@
     </div>
   </div>
 
-  <!-- SLIDE 4: Traction & CTA -->
-  <div class="slide slide-4">
+  <!-- SLIDE 4: Development Architecture (Combined) -->
+  <div class="slide slide-4-combined">
+    <div class="slide-sidebar"></div>
+    <div class="slide-content">
+      <div class="slide-label">Development</div>
+      <h2>Architecture & Workflow</h2>
+      <div class="combined-layout">
+        <!-- App Flow -->
+        <div class="combined-diagram">
+          <h4 class="diagram-label">App Flow</h4>
+          <img src="images/app-flow.jpg" alt="App Flow Diagram" />
+        </div>
+        <!-- Database Schema -->
+        <div class="combined-diagram">
+          <h4 class="diagram-label">Database Schema</h4>
+          <img src="images/erd.png" alt="Database Schema" />
+        </div>
+        <!-- Jira Workflow -->
+        <div class="combined-diagram">
+          <h4 class="diagram-label">Project Management</h4>
+          <img src="images/jira.png" alt="Jira Board" />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 5: Tech Stack -->
+  <div class="slide slide-5">
     <div class="slide-sidebar"></div>
     <div class="slide-content">
       <div class="slide-label">Tech Stack</div>
@@ -831,8 +931,8 @@
     </div>
   </div>
 
-  <!-- SLIDE 5: Team -->
-  <div class="slide slide-5">
+  <!-- SLIDE 6: Team -->
+  <div class="slide slide-6-team">
     <div class="slide-sidebar"></div>
     <div class="slide-content">
       <div class="slide-label">Our Team</div>
@@ -913,7 +1013,7 @@
 <!-- Nav controls -->
 <div class="nav">
   <button id="prev" onclick="changeSlide(-1)" disabled>&#8592;</button>
-  <span class="slide-counter" id="counter">1 / 5</span>
+  <span class="slide-counter" id="counter">1 / 6</span>
   <button id="next" onclick="changeSlide(1)">&#8594;</button>
 </div>
 
