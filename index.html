@@ -66,7 +66,7 @@
       flex: 1;
       display: flex;
       flex-direction: column;
-      padding: 6vh 7vw 6vh 5vw;
+      padding: 3vh 7vw 10vh 5vw;
       position: relative;
       color: #063d30;
     }
@@ -74,7 +74,7 @@
     /* ── Nav controls ── */
     .nav {
       position: fixed;
-      bottom: 28px;
+      bottom: 80px;
       left: 50%;
       transform: translateX(-50%);
       display: flex;
@@ -511,6 +511,158 @@
       color: #4a7a63;
       line-height: 1.7;
     }
+
+    /* ═══════════════════════════
+       SLIDE 5 — Team (Professional Layout)
+    ═══════════════════════════ */
+    .team-showcase {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      flex: 1;
+      justify-content: center;
+      transform: translateY(-100px);
+    }
+
+    /* Team Leads */
+    .team-leads-showcase {
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      margin-bottom: 2px;
+    }
+    .team-lead-card {
+      background: linear-gradient(135deg, rgba(255,255,255,0.75), rgba(196,226,237,0.3));
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 2px solid rgba(6,61,48,0.2);
+      border-radius: 16px;
+      padding: clamp(14px, 1.6vh, 22px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      text-align: center;
+      position: relative;
+      width: clamp(140px, 14vw, 200px);
+      box-shadow: 0 8px 32px rgba(6,61,48,0.12);
+    }
+    .team-lead-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 5px;
+      background: linear-gradient(90deg, #9cecb9, #c4e2ed, #9cecb9);
+      border-radius: 16px 16px 0 0;
+      z-index: 10;
+    }
+    .lead-badge {
+      position: relative;
+      z-index: 20;
+      font-size: clamp(10px, 0.8vw, 12px);
+      font-weight: 700;
+      color: #9cecb9;
+      background: #063d30;
+      padding: 4px 10px;
+      border-radius: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 3px;
+      border: 1px solid #9cecb9;
+    }
+    .team-photo-large {
+      width: clamp(90px, 9vw, 140px);
+      height: clamp(90px, 9vw, 140px);
+      border-radius: 12px;
+      overflow: hidden;
+      border: 2.5px solid #063d30;
+      position: relative;
+    }
+    .team-photo-large img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .team-name-lead {
+      font-size: clamp(15px, 1.3vw, 20px);
+      font-weight: 800;
+      color: #063d30;
+      margin-top: 2px;
+    }
+    .team-qr-code-large {
+      width: clamp(70px, 6.5vw, 100px);
+      height: clamp(70px, 6.5vw, 100px);
+      border: 2.5px solid #063d30;
+      border-radius: 8px;
+      padding: 4px;
+      background: #fff;
+    }
+
+    /* Team Members */
+    .team-grid-showcase {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .team-card-small {
+      background: rgba(255,255,255,0.65);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: 1.5px solid rgba(196,226,237,0.8);
+      border-radius: 12px;
+      padding: clamp(12px, 1.4vh, 18px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 9px;
+      text-align: center;
+      position: relative;
+      width: clamp(125px, 12.5vw, 165px);
+      box-shadow: 0 4px 16px rgba(6,61,48,0.08);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .team-card-small:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(6,61,48,0.12);
+    }
+    .team-card-small::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, #9cecb9, #c4e2ed);
+      border-radius: 12px 12px 0 0;
+    }
+    .team-photo-small {
+      width: clamp(85px, 8.5vw, 125px);
+      height: clamp(85px, 8.5vw, 125px);
+      border-radius: 10px;
+      overflow: hidden;
+      border: 2px solid #c4e2ed;
+    }
+    .team-photo-small img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .team-name-small {
+      font-size: clamp(13px, 1.1vw, 17px);
+      font-weight: 700;
+      color: #063d30;
+    }
+    .team-qr-code-small {
+      width: clamp(65px, 6.5vw, 95px);
+      height: clamp(65px, 6.5vw, 95px);
+      border: 2px solid #063d30;
+      border-radius: 8px;
+      padding: 3px;
+      background: #fff;
+    }
   </style>
 </head>
 <body>
@@ -679,12 +831,82 @@
     </div>
   </div>
 
+  <!-- SLIDE 5: Team -->
+  <div class="slide slide-5">
+    <div class="slide-sidebar"></div>
+    <div class="slide-content">
+      <div class="slide-label">Our Team</div>
+      <h2>The Builders</h2>
+
+      <div class="team-showcase">
+        <!-- Team Leads Row -->
+        <div class="team-leads-showcase">
+          <div class="team-lead-card">
+            <div class="lead-badge">Lead</div>
+            <div class="team-photo-large">
+              <img src="team/yoon.jpg" alt="Yoon" />
+            </div>
+            <h4 class="team-name-lead">Yoon</h4>
+            <img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=https://www.linkedin.com/in/yoon/" alt="Yoon LinkedIn QR" class="team-qr-code-large" />
+          </div>
+          <div class="team-lead-card">
+            <div class="lead-badge">Lead</div>
+            <div class="team-photo-large">
+              <img src="team/michael.jpg" alt="Michael" />
+            </div>
+            <h4 class="team-name-lead">Michael</h4>
+            <img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=https://www.linkedin.com/in/mtrew2015/" alt="Michael LinkedIn QR" class="team-qr-code-large" />
+          </div>
+        </div>
+
+        <!-- Team Grid -->
+        <div class="team-grid-showcase">
+          <div class="team-card-small">
+            <div class="team-photo-small">
+              <img src="team/kyle.jpg" alt="Kyle" />
+            </div>
+            <h5 class="team-name-small">Kyle</h5>
+            <img src="https://api.qrserver.com/v1/create-qr-code/?size=70x70&data=https://www.linkedin.com/in/kndev/" alt="Kyle LinkedIn QR" class="team-qr-code-small" />
+          </div>
+          <div class="team-card-small">
+            <div class="team-photo-small">
+              <img src="team/dylan.jpg" alt="Dylan" />
+            </div>
+            <h5 class="team-name-small">Dylan</h5>
+            <img src="https://api.qrserver.com/v1/create-qr-code/?size=70x70&data=https://www.linkedin.com/in/dylanyng/" alt="Dylan LinkedIn QR" class="team-qr-code-small" />
+          </div>
+          <div class="team-card-small">
+            <div class="team-photo-small">
+              <img src="team/rami.jpg" alt="Rami" />
+            </div>
+            <h5 class="team-name-small">Rami</h5>
+            <img src="https://api.qrserver.com/v1/create-qr-code/?size=70x70&data=https://www.linkedin.com/in/rami-ismael/" alt="Rami LinkedIn QR" class="team-qr-code-small" />
+          </div>
+          <div class="team-card-small">
+            <div class="team-photo-small">
+              <img src="team/devan.jpg" alt="Devan" />
+            </div>
+            <h5 class="team-name-small">Devan</h5>
+            <img src="https://api.qrserver.com/v1/create-qr-code/?size=70x70&data=https://www.linkedin.com/in/devanrivera/" alt="Devan LinkedIn QR" class="team-qr-code-small" />
+          </div>
+          <div class="team-card-small">
+            <div class="team-photo-small">
+              <img src="team/ryan.jpg" alt="Ryan" />
+            </div>
+            <h5 class="team-name-small">Ryan</h5>
+            <img src="https://api.qrserver.com/v1/create-qr-code/?size=70x70&data=https://www.linkedin.com/in/ryan-griego-2134a340/" alt="Ryan LinkedIn QR" class="team-qr-code-small" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </div>
 
 <!-- Nav controls -->
 <div class="nav">
   <button id="prev" onclick="changeSlide(-1)" disabled>&#8592;</button>
-  <span class="slide-counter" id="counter">1 / 4</span>
+  <span class="slide-counter" id="counter">1 / 5</span>
   <button id="next" onclick="changeSlide(1)">&#8594;</button>
 </div>
 
