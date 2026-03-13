@@ -513,39 +513,25 @@
     }
 
     /* ═══════════════════════════
-       SLIDE 4 — Combined Architecture
+       SLIDE 4 — Planning and Workflow
     ═══════════════════════════ */
-    .combined-layout {
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      gap: 14px;
-      flex: 1;
+    .slide-4-combined {
+      background: url('images/mira-board.jpg') center / contain no-repeat;
     }
-    .combined-diagram {
+    .slide-4-combined .slide-content {
+      padding: 3vh 5vw 3vh 5vw;
       display: flex;
       flex-direction: column;
-      gap: 8px;
-      background: rgba(255,255,255,0.6);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      border: 1.5px solid rgba(196,226,237,0.8);
-      border-radius: 12px;
-      padding: 12px;
-      overflow: hidden;
-      min-height: 0;
+      justify-content: flex-end;
     }
-    .diagram-label {
-      font-size: clamp(12px, 1vw, 15px);
-      font-weight: 700;
+    .slide-4-combined h2 {
+      font-size: clamp(34px, 4.2vw, 54px);
       color: #063d30;
-      text-align: center;
-      margin-bottom: 2px;
+      text-shadow: 0 1px 3px rgba(255,255,255,0.5);
+      margin-bottom: 1vh;
     }
-    .combined-diagram img {
-      width: 100%;
-      height: auto;
-      object-fit: contain;
-      flex: 1;
+    .fullscreen-diagram {
+      display: none;
     }
     .pillar-card {
       background: rgba(255,255,255,0.6);
@@ -832,28 +818,14 @@
     </div>
   </div>
 
-  <!-- SLIDE 4: Development Architecture (Combined) -->
+  <!-- SLIDE 4: Planning and Workflow -->
   <div class="slide slide-4-combined">
     <div class="slide-sidebar"></div>
     <div class="slide-content">
       <div class="slide-label">Development</div>
-      <h2>Architecture & Workflow</h2>
-      <div class="combined-layout">
-        <!-- App Flow -->
-        <div class="combined-diagram">
-          <h4 class="diagram-label">App Flow</h4>
-          <img src="images/app-flow.jpg" alt="App Flow Diagram" />
-        </div>
-        <!-- Database Schema -->
-        <div class="combined-diagram">
-          <h4 class="diagram-label">Database Schema</h4>
-          <img src="images/erd.png" alt="Database Schema" />
-        </div>
-        <!-- Jira Workflow -->
-        <div class="combined-diagram">
-          <h4 class="diagram-label">Project Management</h4>
-          <img src="images/jira.png" alt="Jira Board" />
-        </div>
+      <h2>Planning and Workflow</h2>
+      <div class="fullscreen-diagram">
+        <img src="images/mira-board.jpg" alt="Mira Board" />
       </div>
     </div>
   </div>
