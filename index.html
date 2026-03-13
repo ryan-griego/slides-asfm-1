@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ShelterSync – Pitch Deck</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background:
+        radial-gradient(ellipse 80% 60% at 15% 20%, rgba(196,226,237,0.55) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 70% at 85% 75%, rgba(156,236,185,0.45) 0%, transparent 55%),
+        radial-gradient(ellipse 50% 50% at 55% 10%, rgba(252,235,13,0.18) 0%, transparent 50%),
+        radial-gradient(ellipse 70% 50% at 90% 10%, rgba(196,226,237,0.3) 0%, transparent 55%),
+        #f0f6f3;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    /* ── Slide container ── */
+    .slideshow {
+      width: 100%;
+      height: 100%;
+      position: relative;
+    }
+
+    .slide {
+      position: absolute;
+      inset: 0;
+      background: rgba(248,248,248,0.55);
+      backdrop-filter: blur(28px) saturate(1.4);
+      -webkit-backdrop-filter: blur(28px) saturate(1.4);
+      display: flex;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.35s ease;
+    }
+    .slide.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    /* Left sidebar strip */
+    .slide-sidebar {
+      width: 12px;
+      min-width: 12px;
+      background: #063d30;
+    }
+
+    /* Bottom accent stripe */
+    .slide::before {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 5px;
+      background: linear-gradient(90deg, #9cecb9, #c4e2ed, #fceb0d);
+      z-index: 2;
+    }
+
+    .slide-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      padding: 6vh 7vw 6vh 5vw;
+      position: relative;
+      color: #063d30;
+    }
+
+    /* ── Nav controls ── */
+    .nav {
+      position: fixed;
+      bottom: 28px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      z-index: 100;
+      background: rgba(6,61,48,0.85);
+      backdrop-filter: blur(6px);
+      padding: 10px 20px;
+      border-radius: 40px;
+    }
+    .nav button {
+      background: none;
+      border: 1.5px solid #9cecb9;
+      color: #9cecb9;
+      font-size: 18px;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s;
+    }
+    .nav button:hover { background: rgba(156,236,185,0.2); }
+    .nav button:disabled { opacity: 0.25; cursor: default; }
+    .nav .slide-counter {
+      font-size: 13px;
+      color: #9cecb9;
+      letter-spacing: 2px;
+      min-width: 50px;
+      text-align: center;
+    }
+
+    /* Keyboard hint */
+    .key-hint {
+      position: fixed;
+      top: 16px;
+      right: 20px;
+      font-size: 11px;
+      color: rgba(6,61,48,0.4);
+      letter-spacing: 1px;
+      z-index: 100;
+    }
+
+    /* ── Shared label ── */
+    .slide-label {
+      font-size: 14px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: #9cecb9;
+      background: #063d30;
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 3px;
+      margin-bottom: 2vh;
+      align-self: flex-start;
+    }
+
+    .slide-content h2 {
+      font-size: clamp(34px, 4.2vw, 54px);
+      font-weight: 700;
+      color: #063d30;
+      margin-bottom: 3vh;
+      padding-bottom: 1.5vh;
+      border-bottom: 2px solid #c4e2ed;
+    }
+
+    /* ═══════════════════════════
+       SLIDE 1 — Title
+    ═══════════════════════════ */
+    .slide-1 .slide-content { justify-content: center; }
+    .slide-1 h1 {
+      font-size: clamp(64px, 9vw, 120px);
+      font-weight: 800;
+      color: #063d30;
+      line-height: 1;
+      margin-bottom: 2vh;
+    }
+    .slide-1 h1 .accent {
+      color: #9cecb9;
+      text-shadow: 3px 3px 0 #063d30;
+    }
+    .slide-1 .tagline {
+      font-size: clamp(20px, 2.2vw, 30px);
+      color: #2a5e4a;
+      max-width: 60%;
+      line-height: 1.6;
+    }
+    .slide-1 .deco-circle {
+      position: absolute;
+      right: -5vw;
+      top: -5vh;
+      width: 38vw;
+      height: 38vw;
+      border-radius: 50%;
+      background: radial-gradient(circle, #c4e2ed 0%, transparent 65%);
+      opacity: 0.45;
+    }
+    .slide-1 .deco-circle2 {
+      position: absolute;
+      right: 12vw;
+      bottom: -6vh;
+      width: 22vw;
+      height: 22vw;
+      border-radius: 50%;
+      background: radial-gradient(circle, #9cecb9 0%, transparent 65%);
+      opacity: 0.3;
+    }
+
+    /* Hero image on title slide */
+    .slide-1 .hero-img-wrap {
+      position: absolute;
+      right: 5vw;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 36vw;
+      height: 36vw;
+      max-width: 480px;
+      max-height: 480px;
+      border-radius: 50%;
+      overflow: hidden;
+      box-shadow: 0 12px 60px rgba(6,61,48,0.25), 0 0 0 6px rgba(156,236,185,0.4);
+    }
+    .slide-1 .hero-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 30%;
+      filter: saturate(1.1);
+    }
+    /* soft celadon tint overlay */
+    .slide-1 .hero-img-wrap::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      background: linear-gradient(
+        135deg,
+        rgba(156,236,185,0.18) 0%,
+        rgba(196,226,237,0.12) 60%,
+        transparent 100%
+      );
+    }
+
+    /* ═══════════════════════════
+       SLIDE 2 — Problem
+    ═══════════════════════════ */
+    .slide-2 .slide-content {
+      flex-direction: row;
+      gap: 3vw;
+      align-items: stretch;
+    }
+    .slide-2 .slide-left {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .slide-2 .slide-right {
+      width: 26vw;
+      max-width: 320px;
+      min-width: 200px;
+      display: flex;
+      align-items: center;
+    }
+    .slide-2 .prob-img-wrap {
+      width: 100%;
+      height: 78%;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 10px 40px rgba(6,61,48,0.2), 0 0 0 4px rgba(156,236,185,0.35);
+      align-self: center;
+    }
+    .slide-2 .prob-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 20%;
+    }
+    .slide-2 .prob-img-wrap::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 20px;
+      background: linear-gradient(180deg, transparent 50%, rgba(6,61,48,0.18) 100%);
+    }
+    .points { display: flex; flex-direction: column; gap: 2.4vh; }
+    .point { display: flex; align-items: flex-start; gap: 16px; }
+    .point-icon {
+      width: clamp(36px, 3vw, 48px);
+      height: clamp(36px, 3vw, 48px);
+      min-width: clamp(36px, 3vw, 48px);
+      border-radius: 10px;
+      background: #c4e2ed;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: clamp(20px, 2vw, 28px);
+    }
+    .point-text strong {
+      display: block;
+      font-size: clamp(17px, 1.6vw, 24px);
+      font-weight: 700;
+      color: #063d30;
+      margin-bottom: 6px;
+    }
+    .point-text span {
+      font-size: clamp(15px, 1.3vw, 20px);
+      color: #4a7a63;
+      line-height: 1.6;
+    }
+
+    /* ═══════════════════════════
+       SLIDE 3 — Solution
+    ═══════════════════════════ */
+    .features-with-image {
+      display: flex;
+      gap: 20px;
+      flex: 1;
+      align-items: center;
+    }
+    .features-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      flex: 1;
+    }
+    .feature-image-wrap {
+      width: 30%;
+      height: 65%;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 10px 40px rgba(6,61,48,0.2), 0 0 0 4px rgba(156,236,185,0.35);
+      position: relative;
+    }
+    .feature-image-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .feature-image-wrap::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 16px;
+      background: linear-gradient(180deg, transparent 60%, rgba(6,61,48,0.15) 100%);
+    }
+    .feature-card {
+      background: rgba(255,255,255,0.6);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: 1.5px solid rgba(196,226,237,0.8);
+      border-radius: 12px;
+      padding: clamp(14px, 1.6vh, 22px) clamp(16px, 1.8vw, 24px);
+      position: relative;
+    }
+    .feature-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 5px; height: 100%;
+      background: #9cecb9;
+      border-radius: 12px 0 0 12px;
+    }
+    .feature-card .fc-icon {
+      font-size: clamp(28px, 2.8vw, 42px);
+      margin-bottom: 10px;
+      padding-left: 10px;
+      line-height: 1;
+    }
+    .feature-card .fc-title {
+      font-size: clamp(18px, 1.6vw, 26px);
+      font-weight: 700;
+      color: #063d30;
+      margin-bottom: 8px;
+      padding-left: 10px;
+    }
+    .feature-card .fc-desc {
+      font-size: clamp(14px, 1.2vw, 19px);
+      color: #4a7a63;
+      line-height: 1.6;
+      padding-left: 10px;
+    }
+
+    /* ═══════════════════════════
+       SLIDE 4 — Traction / CTA
+    ═══════════════════════════ */
+    .stats-row {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 2.5vh;
+    }
+    .stat-box {
+      flex: 1;
+      background: rgba(255,255,255,0.6);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: 1.5px solid rgba(196,226,237,0.8);
+      border-radius: 12px;
+      padding: clamp(16px,2vh,26px) 14px;
+      text-align: center;
+    }
+    .stat-box .stat-num {
+      font-size: clamp(28px, 3vw, 46px);
+      font-weight: 800;
+      color: #063d30;
+    }
+    .stat-box .stat-label {
+      font-size: clamp(12px, 1vw, 16px);
+      color: #4a7a63;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-top: 6px;
+    }
+    .stat-box.highlight {
+      background: #fceb0d;
+      border-color: #fceb0d;
+    }
+    .cta-block {
+      background: #063d30;
+      border-radius: 12px;
+      padding: clamp(16px,2.2vh,28px) clamp(18px,2vw,28px);
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+    .cta-icon { font-size: clamp(24px, 2.4vw, 36px); }
+    .cta-block .cta-title {
+      font-size: clamp(17px, 1.5vw, 24px);
+      font-weight: 700;
+      color: #9cecb9;
+      margin-bottom: 7px;
+    }
+    .tech-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      flex: 1;
+    }
+    .tech-section {
+      background: rgba(255,255,255,0.6);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: 1.5px solid rgba(196,226,237,0.8);
+      border-radius: 16px;
+      padding: clamp(18px, 2.2vh, 28px) clamp(18px, 1.8vw, 26px);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .tech-section-title {
+      font-size: clamp(16px, 1.4vw, 22px);
+      font-weight: 700;
+      color: #063d30;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #c4e2ed;
+      margin-bottom: 4px;
+    }
+    .tech-items {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .tech-row {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      padding-left: 12px;
+      border-left: 3px solid #9cecb9;
+      padding-bottom: 6px;
+    }
+    .tech-tool {
+      font-size: clamp(17px, 1.55vw, 24px);
+      font-weight: 700;
+      color: #063d30;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .tech-purpose {
+      font-size: clamp(15px, 1.3vw, 21px);
+      color: #063d30;
+      font-style: italic;
+      font-weight: 500;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* ═══════════════════════════
+       SLIDE 5 — AI Chat
+    ═══════════════════════════ */
+    .ai-feature {
+      display: flex;
+      align-items: flex-start;
+      gap: 28px;
+      flex: 1;
+      background: rgba(255,255,255,0.6);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: 1.5px solid rgba(196,226,237,0.8);
+      border-radius: 16px;
+      padding: clamp(24px, 3vh, 36px) clamp(24px, 2.4vw, 36px);
+      position: relative;
+    }
+    .ai-feature::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 5px;
+      height: 100%;
+      background: #9cecb9;
+      border-radius: 16px 0 0 16px;
+    }
+    .ai-icon {
+      font-size: clamp(48px, 5vw, 72px);
+      min-width: clamp(48px, 5vw, 72px);
+      line-height: 1;
+    }
+    .ai-content {
+      flex: 1;
+      padding-left: 8px;
+    }
+    .ai-title {
+      font-size: clamp(18px, 1.6vw, 26px);
+      font-weight: 700;
+      color: #063d30;
+      margin-bottom: 10px;
+    }
+    .ai-desc {
+      font-size: clamp(14px, 1.2vw, 19px);
+      color: #4a7a63;
+      line-height: 1.7;
+    }
+  </style>
+</head>
+<body>
+
+<div class="slideshow">
+
+  <!-- SLIDE 1: Title -->
+  <div class="slide slide-1 active">
+    <div class="slide-sidebar"></div>
+    <div class="slide-content">
+      <div class="deco-circle"></div>
+      <div class="deco-circle2"></div>
+      <h1>Shelter<span class="accent">Sync</span></h1>
+      <p class="tagline">Foster care made simple and accountable — a single source of truth for animal shelters.</p>
+      <div class="hero-img-wrap">
+        <img src="shelter-manager.png" alt="Shelter manager with animals" />
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 2: The Problem -->
+  <div class="slide slide-2">
+    <div class="slide-sidebar"></div>
+    <div class="slide-content">
+      <div class="slide-left">
+        <div class="slide-label">The Problem</div>
+        <h2>Shelters Are Flying Blind</h2>
+        <div class="points">
+          <div class="point">
+            <div class="point-icon">⚠️</div>
+            <div class="point-text">
+              <strong>Thousands lost in missing supplies</strong>
+              <span>Crates, medications, and food go out to foster families and never come back — with no paper trail.</span>
+            </div>
+          </div>
+          <div class="point">
+            <div class="point-icon">🏥</div>
+            <div class="point-text">
+              <strong>Medical records fall through the cracks</strong>
+              <span>Foster families miss medication doses because no one communicated the animal's care plan properly.</span>
+            </div>
+          </div>
+          <div class="point">
+            <div class="point-icon">⚖️</div>
+            <div class="point-text">
+              <strong>Liability risk is real</strong>
+              <span>Animals returned sicker than when they left, with no documentation — putting the entire shelter at legal risk.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="slide-right">
+        <div class="prob-img-wrap">
+          <img src="pexels-tatiana-azatskaya-3616232.jpg" alt="Foster animal in care" />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 3: The Solution -->
+  <div class="slide slide-3">
+    <div class="slide-sidebar"></div>
+    <div class="slide-content">
+      <div class="slide-label">The Solution</div>
+      <h2>One Platform. Full Accountability.</h2>
+      <div class="features-with-image">
+        <div class="features-grid">
+          <div class="feature-card">
+            <div class="fc-icon">🖥️</div>
+            <div class="fc-title">Admin Dashboard</div>
+            <div class="fc-desc">Shelter staff manage all animals, track every item leaving the building, and maintain timestamped medical records.</div>
+          </div>
+          <div class="feature-card">
+            <div class="fc-icon">🏠</div>
+            <div class="fc-title">Foster Portal</div>
+            <div class="fc-desc">Foster families see exactly which animals they're caring for, supplies to return, and complete care instructions.</div>
+          </div>
+          <div class="feature-card">
+            <div class="fc-icon">📦</div>
+            <div class="fc-title">Inventory Tracking</div>
+            <div class="fc-desc">Real-time loan tracking ensures every crate, medication, and supply is accounted for from checkout to return.</div>
+          </div>
+          <div class="feature-card">
+            <div class="fc-icon">🩺</div>
+            <div class="fc-title">Medical Logs</div>
+            <div class="fc-desc">Full medical history per animal with timestamps and accountability — nothing is ever assumed or forgotten.</div>
+          </div>
+        </div>
+        <div class="feature-image-wrap">
+          <img src="pexels-freestocks-134392.jpg" alt="Happy dog in foster home" />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 4: Traction & CTA -->
+  <div class="slide slide-4">
+    <div class="slide-sidebar"></div>
+    <div class="slide-content">
+      <div class="slide-label">Tech Stack</div>
+      <h2>Modern, Scalable, Built to Last</h2>
+      <div class="tech-grid">
+        <div class="tech-section">
+          <h4 class="tech-section-title">Frontend</h4>
+          <div class="tech-items">
+            <div class="tech-row">
+              <div class="tech-tool">React 19 + Vite</div>
+              <div class="tech-purpose">UI framework & build tooling</div>
+            </div>
+            <div class="tech-row">
+              <div class="tech-tool">TanStack Router</div>
+              <div class="tech-purpose">File-based routing</div>
+            </div>
+            <div class="tech-row">
+              <div class="tech-tool">Zustand</div>
+              <div class="tech-purpose">State management</div>
+            </div>
+            <div class="tech-row">
+              <div class="tech-tool">TanStack Form + Zod</div>
+              <div class="tech-purpose">Forms & validation</div>
+            </div>
+            <div class="tech-row">
+              <div class="tech-tool">Tailwind + Shadcn/ui</div>
+              <div class="tech-purpose">Styling & components</div>
+            </div>
+            <div class="tech-row">
+              <div class="tech-tool">Axios</div>
+              <div class="tech-purpose">HTTP client</div>
+            </div>
+            <div class="tech-row">
+              <div class="tech-tool">Supabase JS</div>
+              <div class="tech-purpose">Auth client</div>
+            </div>
+          </div>
+        </div>
+        <div class="tech-section">
+          <h4 class="tech-section-title">Backend</h4>
+          <div class="tech-items">
+            <div class="tech-row">
+              <div class="tech-tool">Node.js + Express 5</div>
+              <div class="tech-purpose">Server & REST API</div>
+            </div>
+            <div class="tech-row">
+              <div class="tech-tool">Prisma</div>
+              <div class="tech-purpose">ORM for database</div>
+            </div>
+            <div class="tech-row">
+              <div class="tech-tool">PostgreSQL</div>
+              <div class="tech-purpose">Relational database</div>
+            </div>
+            <div class="tech-row">
+              <div class="tech-tool">Zod</div>
+              <div class="tech-purpose">Request validation</div>
+            </div>
+            <div class="tech-row">
+              <div class="tech-tool">Jose</div>
+              <div class="tech-purpose">JWT verification</div>
+            </div>
+            <div class="tech-row">
+              <div class="tech-tool">Google Gemini API</div>
+              <div class="tech-purpose">AI chat feature</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Nav controls -->
+<div class="nav">
+  <button id="prev" onclick="changeSlide(-1)" disabled>&#8592;</button>
+  <span class="slide-counter" id="counter">1 / 4</span>
+  <button id="next" onclick="changeSlide(1)">&#8594;</button>
+</div>
+
+<div class="key-hint">← → arrow keys to navigate</div>
+
+<script>
+  const slides = document.querySelectorAll('.slide');
+  let current = 0;
+
+  function changeSlide(dir) {
+    slides[current].classList.remove('active');
+    current = Math.max(0, Math.min(slides.length - 1, current + dir));
+    slides[current].classList.add('active');
+    document.getElementById('counter').textContent = (current + 1) + ' / ' + slides.length;
+    document.getElementById('prev').disabled = current === 0;
+    document.getElementById('next').disabled = current === slides.length - 1;
+  }
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') changeSlide(1);
+    if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp')   changeSlide(-1);
+  });
+</script>
+
+</body>
+</html>
